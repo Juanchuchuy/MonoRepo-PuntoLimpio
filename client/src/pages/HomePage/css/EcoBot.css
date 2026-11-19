@@ -1,0 +1,250 @@
+.ecobot {
+  --eb-green: #4caf50;
+  --eb-green-dark: #2e7d32;
+  --eb-green-deep: #1a3a1f;
+  --eb-green-mid: #2d6a35;
+  --eb-bg: #111b21;
+  --eb-header: #202c33;
+  --eb-input: #2a3942;
+  --eb-user: #005c4b;
+  --eb-text: #e9edf0;
+  --eb-muted: #8696a0;
+
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+.ecobot *,
+.ecobot *::before,
+.ecobot *::after {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* Botón flotante */
+.ecobot-fab {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #eaf2e3;
+  background: linear-gradient(135deg, var(--eb-green-deep), var(--eb-green-mid));
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ecobot-fab:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.ecobot-fab:focus-visible,
+.ecobot-close:focus-visible,
+.ecobot-qbtn:focus-visible,
+.ecobot-send:focus-visible {
+  outline: 2px solid var(--eb-green);
+  outline-offset: 2px;
+}
+
+/* Panel del chat */
+.ecobot-panel {
+  position: absolute;
+  right: 0;
+  bottom: 76px;
+  width: min(380px, calc(100vw - 32px));
+  height: min(560px, calc(100vh - 120px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--eb-bg);
+  color: var(--eb-text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transform-origin: bottom right;
+  animation: ecobot-open 0.2s ease-out;
+}
+@keyframes ecobot-open {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Cabecera */
+.ecobot-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--eb-header);
+  border-bottom: 3px solid var(--eb-green);
+}
+.ecobot-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--eb-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+.ecobot-header-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.ecobot-header-info strong {
+  font-size: 15px;
+}
+.ecobot-online {
+  font-size: 12px;
+  color: var(--eb-green);
+}
+.ecobot-close {
+  background: none;
+  border: none;
+  color: var(--eb-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+}
+.ecobot-close:hover {
+  color: var(--eb-text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Mensajes */
+.ecobot-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+  overflow-y: auto;
+}
+.ecobot-chat::-webkit-scrollbar {
+  width: 4px;
+}
+.ecobot-chat::-webkit-scrollbar-thumb {
+  background: #374248;
+  border-radius: 20px;
+}
+.ecobot-chat::-webkit-scrollbar-thumb:hover {
+  background: #4a5a64;
+}
+.ecobot-msg {
+  max-width: 85%;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+}
+.ecobot-msg-bot {
+  align-self: flex-start;
+  background: var(--eb-header);
+  border-radius: 10px 10px 10px 2px;
+}
+.ecobot-msg-user {
+  align-self: flex-end;
+  background: var(--eb-user);
+  border-radius: 10px 10px 2px 10px;
+}
+.ecobot-bubble {
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.ecobot-time {
+  align-self: flex-end;
+  margin-top: 3px;
+  font-size: 10px;
+  color: var(--eb-muted);
+}
+
+/* Preguntas rápidas */
+.ecobot-quick {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px;
+  overflow-x: auto;
+  border-top: 1px solid var(--eb-header);
+  scrollbar-width: thin;
+}
+.ecobot-qbtn {
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ecobot-qbtn:hover {
+  background: #eaf2e3;
+  border-color: #a5d6a7;
+}
+
+/* Input */
+.ecobot-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--eb-input);
+}
+.ecobot-input input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  background: #eaf2e3;
+  color: #212121;
+}
+.ecobot-input input:focus-visible {
+  outline: 2px solid var(--eb-green);
+}
+.ecobot-send {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  background: var(--eb-green-dark);
+  color: #eaf2e3;
+  cursor: pointer;
+}
+.ecobot-send:hover {
+  background: var(--eb-green);
+}
+
+@media (max-width: 480px) {
+  .ecobot {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ecobot-panel {
+    animation: none;
+  }
+  .ecobot-fab {
+    transition: none;
+  }
+}

@@ -1,0 +1,23 @@
+:root{
+
+    --font-principal: 'Montserrat', sans-serif;
+    --font-weigthText: 600;
+    --font-weigthTitle: 700;
+
+}
+*{
+
+    margin: 0;
+    padding: 0;
+
+
+}
+button,
+input {
+  font: inherit;
+}
+body{
+    background-color: #ececec;
+    min-height: 100vh;      
+    font-family: var(--font-principal);
+}

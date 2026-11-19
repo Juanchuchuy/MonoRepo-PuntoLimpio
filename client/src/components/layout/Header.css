@@ -1,0 +1,102 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 6%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    
+}
+
+.header-logo img {
+    width: 70px;
+    height: auto;
+    display: block;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.login-button,.menu-button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.login-button {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.login-button:hover{
+
+    transform: translateY(-1px);
+    filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.10));
+
+}
+
+.menu-button {
+    background: transparent;
+    font-size: 26px;
+}
+
+/*boton flotante sidebar*/
+.floating-menu-button {
+  position: fixed;
+
+  top: 20px;
+  left: 20px;
+
+  width: 48px;
+  height: 48px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #2e7d32;
+  color: white;
+
+  font-size: 25px;
+
+  cursor: pointer;
+
+  z-index: 1100;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18);
+
+  transition: all 0.2s ease;
+}
+
+.floating-menu-button:hover {
+  background-color: #1b5e20;
+
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+
+  .floating-menu-button {
+    top: 15px;
+    left: 15px;
+
+    width: 44px;
+    height: 44px;
+
+    font-size: 23px;
+  }
+
+}
