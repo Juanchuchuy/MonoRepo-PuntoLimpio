@@ -22,7 +22,7 @@ export default function AdminLayout() {
         <nav className="admin-nav">
          <NavLink to="/admin" end>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                Dashboard <LayoutDashboard size={20} />
+                Ver Todos <LayoutDashboard size={20} />
                 </span>
             </NavLink>
             {SECCIONES_ADMIN.map((s) => {
@@ -44,7 +44,6 @@ export default function AdminLayout() {
         <header className="admin-topbar">
           <span>Panel de administración</span>
           <div className="admin-topbar-actions">
-            <span>{user?.nombre}</span>
             <Link to="/" className="admin-btn admin-btn-secondary">
               Volver al sitio
             </Link>
