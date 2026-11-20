@@ -119,28 +119,7 @@
     }
 }
 
-.social-icons {
-    margin: 20px 0;
-}
 
-.social-icons a {
-    border: 1px solid var(--green-bright);
-    border-radius: 20%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 3px;
-    width: 40px;
-    height: 40px;
-}
-
-.social-icons a i {
-    transition: all 0.3s ease;
-}
-
-.social-icons a:hover i {
-    transform: scale(1.2);
-}
 
 .toggle-container {
     position: absolute;

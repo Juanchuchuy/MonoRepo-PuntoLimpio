@@ -45,7 +45,11 @@ export default function RolesList() {
   return (
     <>
       <div className="admin-toolbar">
-        <h1 className="admin-title">Roles</h1>
+        <div className="glass-card-white">
+      <h1 className="admin-title">
+        <strong style={{ color: 'white' }}>Roles</strong>
+      </h1>
+    </div>
         <Link to="/admin/roles/nuevo" className="admin-btn admin-btn-primary">
           Nuevo rol
         </Link>

@@ -6,6 +6,6 @@
     width: 100vw;
     background:
         linear-gradient(#212121cc, #212121cc),
-        url('https://comunicacionsmt.gob.ar/download/multimedia.normal.9d75475371df0a00.bXVsdGltZWRpYS5ub3JtYWwuOWEwZTIxM2EwNzYwODlfbm9ybWFsLndlYnA=.webp')
+        url('../../../assets/multimedia.normal.9d75475371df0a00.bXVsdGltZWRpYS5ub3JtYWwuOWEwZTIxM2EwNzYwODlfbm9ybWFsLndlYnA=.webp')
         center / cover no-repeat;
 }
