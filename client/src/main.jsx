@@ -2,6 +2,8 @@ import { createRoot } from 'react-dom/client'
 import App from './App';
 import Mapa from './pages/MapaPage/Mapa';
 import AccesoPage from './pages/AccesoPage/AccesoPage';
+import EstadisticasPage from './pages/EstadisticasPage/EstadisticasPage';
+import ReciclajePage from './pages/ReciclajePage/ReciclajePage';
 import PrivateRoute from './routes/PrivateRoute';
 import AdminLayout from './pages/AdminPage/AdminLayout';
 import AdminDashboard from './pages/AdminPage/AdminDashboard';
