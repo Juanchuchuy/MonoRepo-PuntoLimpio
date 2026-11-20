@@ -1,5 +1,4 @@
 import mysql from "mysql2/promise";
-
 // Pool de conexiones a MySQL. Los datos vienen del .env (cargado en server.js).
 export const pool = mysql.createPool({
   host: process.env.DB_HOST,

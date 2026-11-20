@@ -1,4 +1,3 @@
-
 /*General*/
 
 .mapa-contenedor-general {
@@ -97,7 +96,7 @@
 }
 
 
-  /*Botones*/
+/*Botones*/
 
 
 .mapa-acciones {
@@ -142,7 +141,7 @@
 
 /*Mapa y Leyendas*/
 
-.mapa-panel > p {
+.mapa-panel>p {
   color: #42634a;
   text-align: center;
 }
@@ -168,7 +167,8 @@
 }
 
 .leyenda-rojo,
-.leyenda-azul {
+.leyenda-azul,
+.leyenda-verde {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -181,6 +181,11 @@
 
 .leyenda-azul {
   background-color: #2878e3;
+}
+
+.leyenda-verde {
+
+  background-color: #2ecc71
 }
 
 /*Marcadores Mapa*/
@@ -203,12 +208,18 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+.mapa-icono-verde {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #2ecc71;
+  border: 3px solid white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
 /*Contenido adentro del mapa*/
 .leaflet-popup-content {
   font-family: 'Segoe UI', sans-serif;
   font-size: 13px;
   color: #444444;
 }
-
-
-

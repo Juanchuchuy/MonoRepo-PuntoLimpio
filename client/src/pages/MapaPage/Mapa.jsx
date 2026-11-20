@@ -21,6 +21,12 @@ const iconoProvisional = L.divIcon({
   iconAnchor: [10, 10]
 });
 
+const iconoPuntoVerde = L.divIcon({
+  className: 'mapa-icono-verde',
+  iconSize: [20, 20],
+  iconAnchor: [10, 10]
+});
+
 
 
 const CapturaClic = ({ alHacerClick }) => {
@@ -37,7 +43,12 @@ const Mapa = () => {
   const [tipoResiduo, setTipoResiduo] = useState("");
   const [reportes, setReportes] = useState([]);
   const [tipos, setTipos] = useState([])
-  // traer los tipos de residuos
+  const [puntos, setPuntos] = useState([])
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
+  const [enviando, setEnviando] = useState(false);
+
+
   useEffect(() => {
     const traertipos = async () => {
       try {
@@ -73,6 +84,59 @@ const Mapa = () => {
     traerReportes()
   }, [])
 
+  useEffect(() => {
+    const traerPuntos = async () => {
+      try {
+        const respuesta = await fetch(`${API_URL}/puntos`);
+        const data = await respuesta.json();
+        setPuntos(data);
+
+      } catch (error) {
+        console.error('error al traer los puntos:', error);
+      }
+
+
+    };
+
+    traerPuntos();
+  }, [])
+
+
+
+  useEffect(() => {
+    const traerTipos = async () => {
+      try {
+
+        // await new Promise(resolve => setTimeout(resolve, 3000)); // usar solo para el ejemplo de que sirve la carga XD
+
+        const respuesta = await fetch(`${API_URL}/tipos`);
+        const data = await respuesta.json();
+        setTipos(data);
+        setCargando(false);
+      } catch (error) {
+        console.error(error);
+        setError('Error al cargar los tipos de residuos');
+        setCargando(false);
+      }
+    };
+    traerTipos();
+  }, []);
+
+
+  useEffect(() => {
+    const traerReportes = async () => {
+      try {
+        const respuesta = await fetch(`${API_URL}/reportes`);
+        const data = await respuesta.json();
+        setReportes(data);
+      } catch (error) {
+        console.error(error);
+        setError('Error al cargar los reportes');
+      }
+    };
+    traerReportes();
+  }, []);
+
 
 
   const limpiarFormulario = () => {
@@ -82,11 +146,17 @@ const Mapa = () => {
   };
 
   const confirmarReporte = async () => {
+    setEnviando(true) //deshabilita el boton de primeras 
+
+   // await new Promise(resolve => setTimeout(resolve, 2000)); // usar solo para el ejemplo de que sirve la carga XD
+
+
+   
     try {
       const respuesta = await fetch(`${API_URL}/reportes`, {
-        method: 'POST', //le dice al servidor que tipo de metodo va a usarse en este caso tipo post
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json' // le dice al servidor como interpretar lo que manda (no lo convierte a objeto)
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           latitud: ubicacionTemporal.lat,
@@ -111,10 +181,73 @@ const Mapa = () => {
       console.error('no se pudo guardar el reporte intente de nuevo', error)
 
     }
+    //se ejecuta independientemente del resultado
+    finally {
+      setEnviando(false) //habilita nuevamente el boton
+    }
 
-    
+
 
   };
+
+
+  const eliminarReporte = async (id) => {
+    try {
+      const respuesta = await fetch(`${API_URL}/reportes/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!respuesta.ok) {
+        throw new Error('No se pudo eliminar');
+      }
+
+      const reportesActualizados = reportes.filter(reporte => reporte.id_reporte !== id);
+      setReportes(reportesActualizados);
+
+    } catch (error) {
+      console.error('Error al eliminar:', error);
+      alert('No se pudo eliminar el reporte');
+    }
+  };
+
+
+
+  const cambiarEstado = async (id, nuevoEstado) => {
+    try {
+
+      const respuesta = await fetch(`${API_URL}/reportes/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ estado: nuevoEstado })
+      });
+
+
+      if (!respuesta.ok) {
+        throw new Error('No se pudo actualizar el estado');
+      }
+
+
+      const reportesActualizados = reportes.map((reporte) => {
+        if (reporte.id_reporte === id) {
+          return { ...reporte, estado: nuevoEstado };
+        }
+        return reporte;
+      });
+
+      setReportes(reportesActualizados);
+
+    } catch (error) {
+      console.error('Error al actualizar:', error);
+      alert('No se pudo actualizar el estado del reporte');
+    }
+  };
+
+
+
+
+
 
   return (
     <div className="mapa-contenedor-general">
@@ -134,18 +267,42 @@ const Mapa = () => {
           <Marker position={ubicacionTemporal} icon={iconoProvisional} />
         )}
 
+        {puntos.map((punto) => (
+          <Marker key={punto.id_punto} position={[punto.latitud, punto.longitud]} icon={iconoPuntoVerde}>
+            <Popup>
+              <p><strong>{punto.nombre}</strong></p>
+              <p>{punto.referencia}</p>
+            </Popup>
+          </Marker>
+        ))}
+
         {reportes.map((reporte) => (
           <Marker key={reporte.id_reporte} position={[reporte.latitud, reporte.longitud]} icon={iconoBasural}>
             <Popup>
               <p><strong>Tipo:</strong> {reporte.tipo}</p>
               <p><strong>Descripción:</strong> {reporte.descripcion}</p>
               <p><strong>Estado:</strong> {reporte.estado}</p>
+              <select
+                value={reporte.estado}
+                onChange={(e) => cambiarEstado(reporte.id_reporte, e.target.value)}
+              >
+                <option value="Pendiente">Pendiente</option>
+                <option value="En revision">En revisión</option>
+                <option value="Resuelto">Resuelto</option>
+                <option value="Rechazado">Rechazado</option>
+              </select>
+
+              <button onClick={() => eliminarReporte(reporte.id_reporte)}>
+                Eliminar
+              </button>
             </Popup>
           </Marker>
         ))}
       </MapContainer>
 
       <aside className="mapa-panel">
+        {cargando && <p>Cargando datos del mapa...</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         {ubicacionTemporal ? (
           <div className="mapa-formulario">
             <div className="mapa-encabezado">
@@ -172,13 +329,14 @@ const Mapa = () => {
             </select>
             <button className="boton-confirmar"
               onClick={confirmarReporte}
-              disabled={!descripcion || !tipoResiduo}
+              disabled={!descripcion || !tipoResiduo || enviando}
             >
-              Confirmar reporte
+              {enviando ? 'Enviando...' : 'Confirmar reporte'}
+
             </button>
           </div>
         ) : (
-          <p>Hacé click para marcar un basural </p>
+          !error && <p>Hacé click para marcar un basural </p>
         )}
         <div className="mapa-leyenda">
           <h3>Referencias del mapa</h3>
@@ -190,8 +348,14 @@ const Mapa = () => {
 
           <p>
             <span className="leyenda-azul"></span>
-            Ubicacion Momentanea 
+            Ubicacion Momentanea
           </p>
+
+          <p>
+            <span className="leyenda-verde"></span>
+            Punto de recolección
+          </p>
+
         </div>
 
       </aside>

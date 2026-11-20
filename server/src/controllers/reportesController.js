@@ -59,3 +59,69 @@ export const postReporte = async (req, res) => {
         res.status(500).json({ error: 'Error al guardar el reporte' });
     }
 };
+
+
+export const updateReporte = async (req, res) => {
+
+    const { id } = req.params;
+    const { estado } = req.body;
+
+    //validacion para mayusculas o espaciado
+    const estadosPermitidos = ['Pendiente', 'En revision', 'Resuelto', 'Rechazado'];
+    if (!estadosPermitidos.includes(estado)) {
+        return res.status(400).json({ message: 'Estado no válido' });
+    }
+
+
+    try {
+        const updatesql = `UPDATE reportes_ciudadanos SET estado = ? WHERE id_reporte = ?`
+        const [resultado] = await pool.query(updatesql, [estado, id])
+
+        //si intenta updatear un reporte que no existe 
+        if (resultado.affectedRows === 0) {
+            return res.status(404).json({ message: 'Reporte no encontrado' });
+        }
+
+
+        res.json({ message: 'Estado actualizado correctamente' })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al actualizar el reporte' })
+    }
+
+}
+
+
+
+export const deleteReporte = async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+        const deletesql = `DELETE FROM reportes_ciudadanos WHERE id_reporte = ?`
+        const [resultado] = await pool.query(deletesql, [id])
+
+        //si intenta borrar un reporte que no existe 
+        if (resultado.affectedRows === 0) {
+            return res.status(404).json({ message: 'Reporte no encontrado' });
+        }
+
+        res.json({ message: 'Reporte eliminado correctamente' });
+
+
+    } catch (error) {
+        console.error('Error al eliminar el reporte:', error);
+        res.status(500).json({ error: 'Error interno al eliminar el reporte' })
+    }
+
+}
+
+export const getPuntos = async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT id_punto, nombre, referencia, latitud, longitud FROM puntos_recoleccion');
+        res.json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los puntos de recolección' });
+    }
+};
