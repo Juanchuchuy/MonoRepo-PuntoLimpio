@@ -24,10 +24,13 @@ function Sidebar({ abierto, cerrarSidebar }) {
   //agrega una clase dependiendo del estado
   return (
     <>
-      <div
-        className="sidebar-overlay"
-        onClick={cerrarSidebar}
-      ></div>
+       {/* Solo mostramos el overlay si el sidebar esta abierto */}
+      {abierto && (
+        <div
+          className="sidebar-overlay"
+          onClick={cerrarSidebar}
+        ></div>
+      )}
 
       <aside className={`sidebar ${abierto ? "sidebar-abierto" : ""}`}>
 
@@ -43,11 +46,11 @@ function Sidebar({ abierto, cerrarSidebar }) {
         </div>
 
         <nav className="sidebar-nav">
-          <Link to={'/'}>Inicio</Link>
-          <Link to={'/Mapa'}>Mapa</Link>
-          <Link href="#">Reciclaje</Link>
-          <Link href="#">EcoBot</Link>
-          <Link href="#">Información</Link>
+          <Link to={'/'} onClick={cerrarSidebar}>Inicio</Link>
+          <Link to={'/Mapa'} onClick={cerrarSidebar}>Mapa</Link>
+          <Link to={'/reciclaje'} onClick={cerrarSidebar}>Reciclaje</Link>
+          <Link to={'/estadisticas'} onClick={cerrarSidebar}>Estadísticas</Link>
+          
         </nav>
 
         <div className="sidebar-account">
