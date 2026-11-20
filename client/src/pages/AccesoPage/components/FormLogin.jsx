@@ -1,5 +1,6 @@
+import { Weight } from "lucide-react";
 import { useState } from "react";
-import SocialIcons from "./SocialIcons";
+
 
 export default function FormLogin({ onLogin }) {
   const [data, setData] = useState({ email: "", password: "" });
@@ -23,7 +24,7 @@ export default function FormLogin({ onLogin }) {
     <div className="form-container sign-in">
       <form onSubmit={handleSubmit}>
         <h1>Iniciar Sesion</h1>
-        <SocialIcons />
+        <br></br>
         <input
           type="email"
           placeholder="Email"

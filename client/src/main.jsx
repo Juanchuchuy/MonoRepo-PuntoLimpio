@@ -1,7 +1,10 @@
 import { createRoot } from 'react-dom/client'
 import App from './App';
+import Home from './pages/HomePage/Home';
 import Mapa from './pages/MapaPage/Mapa';
 import AccesoPage from './pages/AccesoPage/AccesoPage';
+import EstadisticasPage from './pages/EstadisticasPage/EstadisticasPage';
+import ReciclajePage from './pages/ReciclajePage/ReciclajePage';
 import PrivateRoute from './routes/PrivateRoute';
 import AdminLayout from './pages/AdminPage/AdminLayout';
 import AdminDashboard from './pages/AdminPage/AdminDashboard';
@@ -19,9 +22,15 @@ useAuthStore.getState().loadSession();
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      <Route path='/' element={<App />}></Route>
-      <Route path='/Mapa' element={<Mapa />}></Route>
-      <Route path='/Acceso' element={<AccesoPage />}></Route>
+      {/* Acá metemos TODAS las paginas adentro de App para que tengan Sidebar/Header */}
+      <Route element={<App />}>
+        <Route path='/' element={<Home />} />
+        <Route path='/Mapa' element={<Mapa />} />
+        <Route path='/Acceso' element={<AccesoPage />} />
+        <Route path='/reciclaje' element={<ReciclajePage />} />
+        <Route path='/estadisticas' element={<EstadisticasPage />} />
+      </Route>
+
 
       {/* Rutas privadas: se agregan acá 
           <Route element={<PrivateRoute />}> ...cualquier usuario con sesión... </Route> */}
