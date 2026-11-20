@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SocialIcons from "./SocialIcons";
+
 
 export default function FormRegistro({ onRegister }) {
   const [data, setData] = useState({ nombre: "", apellido: "", email: "", password: "", confirmar: "" });
@@ -32,7 +32,7 @@ export default function FormRegistro({ onRegister }) {
     <div className="form-container sign-up">
       <form onSubmit={handleSubmit}>
         <h1>Registrarse</h1>
-        <SocialIcons />
+        <br />
         <input
           type="text"
           placeholder="Nombre"
