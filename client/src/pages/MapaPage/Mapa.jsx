@@ -148,7 +148,7 @@ const Mapa = () => {
   const confirmarReporte = async () => {
     setEnviando(true) //deshabilita el boton de primeras 
 
-    // await new Promise(resolve => setTimeout(resolve, 2000)); // usar solo para el ejemplo de que sirve la carga XD
+   // await new Promise(resolve => setTimeout(resolve, 2000)); // usar solo para el ejemplo de que sirve la carga XD
 
 
    
