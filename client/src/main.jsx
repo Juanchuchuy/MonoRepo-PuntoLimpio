@@ -41,7 +41,11 @@ createRoot(document.getElementById('root')).render(
         <Route path='/Mapa' element={<Mapa />} />
         <Route path='/Acceso' element={<AccesoPage />} />
         <Route path='/reciclaje' element={<ReciclajePage />} />
-        <Route path='/estadisticas' element={<EstadisticasPage />} />
+
+        {/* Estadísticas: solo para el rol administrador */}
+        <Route element={<PrivateRoute roles={['administrador']} />}>
+          <Route path='/estadisticas' element={<EstadisticasPage />} />
+        </Route>
       </Route>
 
       

@@ -5,6 +5,7 @@ import mapaHome from "../../assets/mapa-home.png";
 import reciclajeHome from "../../assets/reciclaje-home.png";
 import "./css/Home.css";
 import EcoBot from "./components/EcoBot";
+import { api } from "../../services/api";
 
 function Home() {
   const [impacto, setImpacto] = useState({
@@ -16,13 +17,7 @@ function Home() {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/estadisticas")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("No se pudieron cargar las estadísticas");
-        }
-        return res.json();
-      })
+    api("/estadisticas/impacto")
       .then((data) => {
         setImpacto({
           reportes: data.reportes,

@@ -8,11 +8,10 @@ function Sidebar({ abierto, cerrarSidebar }) {
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
 
-  const handleLogin = () =>{
-
-    navigate('/Acceso')
-
-  }
+  const handleLogin = () => {
+  cerrarSidebar();
+  navigate('/Acceso');
+  };
 
   const handleLogout = () => {
     logout();
@@ -49,8 +48,12 @@ function Sidebar({ abierto, cerrarSidebar }) {
           <Link to={'/'} onClick={cerrarSidebar}>Inicio</Link>
           <Link to={'/Mapa'} onClick={cerrarSidebar}>Mapa</Link>
           <Link to={'/reciclaje'} onClick={cerrarSidebar}>Reciclaje</Link>
-          <Link to={'/estadisticas'} onClick={cerrarSidebar}>Estadísticas</Link>
-          {user?.rol === 'administrador' && <Link to={'/admin'} onClick={cerrarSidebar}>Dashboard</Link>}
+          {user?.rol === 'administrador' && (
+            <>
+              <Link to={'/estadisticas'} onClick={cerrarSidebar}>Estadísticas</Link>
+              <Link to={'/admin'} onClick={cerrarSidebar}>Dashboard</Link>
+            </>
+          )}
           
         </nav>
 

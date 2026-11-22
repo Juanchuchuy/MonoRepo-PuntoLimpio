@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../styles/Estadisticas.css";
 import { jsPDF } from "jspdf";
+import { api } from "../../services/api";
 
 function cargarLogo() {
     return new Promise((resolve, reject) => {
@@ -28,11 +29,7 @@ function Estadisticas() {
 
     // 2. Cargar los datos del backend al iniciar
     useEffect(() => {
-        fetch("http://localhost:3000/api/estadisticas")
-            .then((res) => {
-                if (!res.ok) throw new Error("Error al cargar las estadísticas");
-                return res.json();
-            })
+        api("/estadisticas")
             .then((json) => {
                 setData(json);
                 setLoading(false);
