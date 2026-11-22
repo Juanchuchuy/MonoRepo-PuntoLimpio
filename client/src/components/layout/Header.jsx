@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { LogIn, LogOut } from "lucide-react";
 import { useAuthStore } from "../../store/authStore";
 import Sidebar from "../../pages/HomePage/components/Sidebar";
 import "./Header.css";
@@ -79,13 +80,23 @@ function Header() {
                     Dashboard
                   </button>
                 )}
-                <button className="login-button" onClick={handleLogout}>
-                  Cerrar Sesion
+                <button
+                  className="login-button icon-button"
+                  onClick={handleLogout}
+                  title="Cerrar sesión"
+                  aria-label="Cerrar sesión"
+                >
+                  <LogOut size={20} />
                 </button>
               </>
             ) : (
-              <button className="login-button" onClick={() => handleLogin()}>
-                Iniciar Sesion
+              <button
+                className="login-button icon-button"
+                onClick={() => handleLogin()}
+                title="Iniciar sesión"
+                aria-label="Iniciar sesión"
+              >
+                <LogIn size={20} />
               </button>
             )}
           </div>

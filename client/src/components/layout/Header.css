@@ -49,6 +49,15 @@
 
 }
 
+.login-button.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+}
+
 .menu-button {
     background: transparent;
     font-size: 26px;
