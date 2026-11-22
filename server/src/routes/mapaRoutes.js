@@ -2,8 +2,9 @@ import { Router } from 'express';
 import { getTipos, getReportes, postReporte, updateReporte, deleteReporte, getPuntos } from '../controllers/reportesController.js';
 import { getZonas, postZona, putZona, deleteZona } from '../controllers/zonasController.js';
 import { getCalles, postCalle, putCalle, deleteCalle } from '../controllers/callesController.js';
-import { getEstadisticas } from '../controllers/estadisticasController.js';
+import { getEstadisticas, getImpacto } from '../controllers/estadisticasController.js';
 import verifyToken from '../middlewares/verifyToken.js';
+import requireRole from '../middlewares/requireRole.js';
 
 
 
@@ -23,7 +24,8 @@ router.get('/calles', getCalles);
 router.post('/calles', postCalle);
 router.put('/calles/:id', putCalle);
 router.delete('/calles/:id', deleteCalle);
-router.get('/estadisticas', getEstadisticas);
+router.get('/estadisticas/impacto', getImpacto); // público: lo usa el inicio
+router.get('/estadisticas', verifyToken, requireRole('administrador'), getEstadisticas); // solo admin
 
 
 export default router;
