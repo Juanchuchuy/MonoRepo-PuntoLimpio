@@ -40,11 +40,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/estadisticas' element={<EstadisticasPage />} />
       </Route>
 
-
-      {/* Rutas privadas: se agregan acá 
-          <Route element={<PrivateRoute />}> ...cualquier usuario con sesión... </Route> */}
-
-      {/* Panel de administración: solo rol administrador */}
+      
       <Route element={<PrivateRoute roles={['administrador']} />}>
         <Route path='/admin' element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
