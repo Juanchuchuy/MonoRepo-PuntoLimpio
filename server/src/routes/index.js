@@ -4,6 +4,7 @@ import rolesRoutes from "./roles.routes.js";
 import usuariosRoutes from "./usuarios.routes.js";
 import tiposResiduoRoutes from "./tiposResiduo.routes.js";
 import mapaRoutes from "./mapaRoutes.js";
+
 // Punto único donde se montan todas las rutas de la API (cada recurso nuevo se suma acá).
 const router = Router();
 
