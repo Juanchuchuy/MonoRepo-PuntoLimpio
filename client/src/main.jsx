@@ -8,10 +8,15 @@ import ReciclajePage from './pages/ReciclajePage/ReciclajePage';
 import PrivateRoute from './routes/PrivateRoute';
 import AdminLayout from './pages/AdminPage/AdminLayout';
 import AdminDashboard from './pages/AdminPage/AdminDashboard';
+import AdminReportes from './pages/AdminPage/AdminReportes'
+import ZonasList from './pages/AdminPage/zonas/ZonasList';
+import ZonaForm from './pages/AdminPage/zonas/ZonaForm';
+import CallesList from './pages/AdminPage/calles/CallesList';
+import CalleForm from './pages/AdminPage/calles/CalleForm'
 import RolesList from './pages/AdminPage/roles/RolesList';
 import RolForm from './pages/AdminPage/roles/RolForm';
 import { useAuthStore } from './store/authStore';
-import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css'
 import 'leaflet/dist/leaflet.css';
 
@@ -42,6 +47,13 @@ createRoot(document.getElementById('root')).render(
           <Route path='roles' element={<RolesList />} />
           <Route path='roles/nuevo' element={<RolForm />} />
           <Route path='roles/:id/editar' element={<RolForm />} />
+          <Route path='reportes' element={<AdminReportes />} />
+          <Route path='zonas' element={<ZonasList />} />
+          <Route path='zonas/nueva' element={<ZonaForm />} />
+          <Route path='zonas/:id/editar' element={<ZonaForm />} />
+          <Route path='calles' element={<CallesList />} />
+          <Route path='calles/nueva' element={<CalleForm />} />
+          <Route path='calles/:id/editar' element={<CalleForm />} />
         </Route>
       </Route>
     </Routes>

@@ -6,4 +6,8 @@ import { UserGroup,User,Road,FileClock,MapPin } from "lucide-react";
 
 export const SECCIONES_ADMIN = [
   { to: "/admin/roles", label: "Roles", Icono: UserGroup, descripcion: "Perfiles de acceso y permisos del sistema" },
+  { to: "/admin/reportes", label: "Reportes Ciudadanos", Icono: MapPin, descripcion: "Gestión de basurales reportados por los vecinos" },
+  { to: "/admin/zonas", label: "Zonas", Icono: MapPin, descripcion: "Gestión de zonas" },
+  { to: "/admin/calles", label: "Calles", Icono: Road, descripcion: "Gestión de calles por zona" }
 ];
+

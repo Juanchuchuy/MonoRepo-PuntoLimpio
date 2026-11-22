@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { listarUsuarios, eliminarUsuario } from "../../../services/usuarios.service";
 
-// Listado de usuarios con acceso a crear, editar y eliminar.
+
 export default function UsuariosList() {
   const location = useLocation();
   const [usuarios, setUsuarios] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
-  // Mensaje de éxito que envían los formularios al volver al listado.
+  
   const mensaje = location.state?.mensaje;
 
   useEffect(() => {

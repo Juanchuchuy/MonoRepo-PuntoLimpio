@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { actualizarUsuario, crearUsuario, obtenerUsuario } from "../../../services/usuarios.service";
 import { listarRoles } from "../../../services/roles.service";
 
-// Formulario compartido: sin :id en la ruta crea un usuario, con :id edita el existente.
+
 export default function UsuarioForm() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function UsuarioForm() {
 
   const cambiar = (campo) => (e) => setDatos((prev) => ({ ...prev, [campo]: e.target.value }));
 
-  // Carga los roles para el select y, al editar, los datos actuales del usuario.
+  
   useEffect(() => {
     let cancelado = false;
 
