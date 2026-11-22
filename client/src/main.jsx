@@ -19,6 +19,10 @@ import UsuariosList from './pages/AdminPage/usuarios/UsuariosList';
 import UsuarioForm from './pages/AdminPage/usuarios/UsuarioForm';
 import TiposResiduoList from './pages/AdminPage/tipos-residuo/TiposResiduoList';
 import TipoResiduoForm from './pages/AdminPage/tipos-residuo/TipoResiduoForm';
+import PuntosList from './pages/AdminPage/puntos/PuntosList';
+import PuntoForm from './pages/AdminPage/puntos/PuntoForm';
+import PuntoTiposList from './pages/AdminPage/puntoTipos/PuntoTiposList';
+import PuntoTipoForm from './pages/AdminPage/puntoTipos/PuntoTipoForm';
 import { useAuthStore } from './store/authStore';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css'
@@ -60,6 +64,12 @@ createRoot(document.getElementById('root')).render(
           <Route path='calles' element={<CallesList />} />
           <Route path='calles/nueva' element={<CalleForm />} />
           <Route path='calles/:id/editar' element={<CalleForm />} />
+          <Route path='puntos' element={<PuntosList />} />
+          <Route path='puntos/nuevo' element={<PuntoForm />} />
+          <Route path='puntos/:id/editar' element={<PuntoForm />} />
+          <Route path='punto-tipos' element={<PuntoTiposList />} />
+          <Route path='punto-tipos/nuevo' element={<PuntoTipoForm />} />
+          <Route path='punto-tipos/:idPunto/:idTipo/editar' element={<PuntoTipoForm />} />
         </Route>
       </Route>
     </Routes>

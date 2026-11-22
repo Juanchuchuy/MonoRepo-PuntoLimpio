@@ -15,6 +15,12 @@ export default function AdminLayout() {
     navigate("/");
   };
 
+  // Vuelve a la pantalla anterior; si se entró directo a esta página (sin historial), va al panel.
+  const handleVolver = () => {
+    if (window.history.state?.idx > 0) navigate(-1);
+    else navigate("/admin");
+  };
+
   return (
     <div className="admin">
       <aside className="admin-sidebar">
@@ -44,6 +50,9 @@ export default function AdminLayout() {
         <header className="admin-topbar">
           <span>Panel de administración</span>
           <div className="admin-topbar-actions">
+            <button type="button" className="admin-btn admin-btn-secondary" onClick={handleVolver}>
+              ← Volver
+            </button>
             <Link to="/" className="admin-btn admin-btn-secondary">
               Volver al sitio
             </Link>

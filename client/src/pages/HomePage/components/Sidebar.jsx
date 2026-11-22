@@ -50,6 +50,7 @@ function Sidebar({ abierto, cerrarSidebar }) {
           <Link to={'/Mapa'} onClick={cerrarSidebar}>Mapa</Link>
           <Link to={'/reciclaje'} onClick={cerrarSidebar}>Reciclaje</Link>
           <Link to={'/estadisticas'} onClick={cerrarSidebar}>Estadísticas</Link>
+          {user?.rol === 'administrador' && <Link to={'/admin'} onClick={cerrarSidebar}>Dashboard</Link>}
           
         </nav>
 
