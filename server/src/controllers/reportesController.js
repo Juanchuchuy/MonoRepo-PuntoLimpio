@@ -39,7 +39,7 @@ export const postReporte = async (req, res) => {
     }
 
     const ubicacion = `${latitud},${longitud}`;
-    const id_usuario = process.env.ID_USUARIO_PRUEBA;
+    const id_usuario = req.user.id; // lo deja verifyToken a partir del JWT
 
     try {
         const consultasql = `INSERT INTO reportes_ciudadanos (id_usuario, id_tipo, descripcion, ubicacion, latitud, longitud) VALUES (?, ?, ?, ?, ?, ?)`;

@@ -3,6 +3,8 @@ import L from "leaflet";
 import { MapContainer, TileLayer, Marker, useMapEvents, Popup } from "react-leaflet";
 import { useState, useEffect } from "react";
 import "./Mapa-estilo.css";
+import { api } from "../../services/api";
+import { useAuthStore } from "../../store/authStore";
 
 
 
@@ -37,6 +39,8 @@ const CapturaClic = ({ alHacerClick }) => {
 };
 
 const Mapa = () => {
+
+  const user = useAuthStore((s) => s.user);
 
   const [ubicacionTemporal, setUbicacionTemporal] = useState(null);
   const [descripcion, setDescripcion] = useState("");
@@ -146,47 +150,38 @@ const Mapa = () => {
   };
 
   const confirmarReporte = async () => {
+    // Crear un reporte exige sesión: el servidor toma el usuario del token.
+    if (!user) {
+      setError('Tenés que iniciar sesión para enviar un reporte');
+      return;
+    }
+
+    setError(null);
     setEnviando(true) //deshabilita el boton de primeras 
 
-   // await new Promise(resolve => setTimeout(resolve, 2000)); // usar solo para el ejemplo de que sirve la carga XD
-
-
-   
     try {
-      const respuesta = await fetch(`${API_URL}/reportes`, {
+      const data = await api('/reportes', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+        body: {
           latitud: ubicacionTemporal.lat,
           longitud: ubicacionTemporal.lng,
           descripcion: descripcion,
           id_tipo: tipoResiduo
-        })
+        }
+      });
 
-
-      })
-
-      if (!respuesta.ok) {
-        throw new Error('El servidor rechazó el reporte');
-      }
-
-      const data = await respuesta.json();
-      console.log(data)
       setReportes([...reportes, data]);
       limpiarFormulario();
 
     } catch (error) {
       console.error('no se pudo guardar el reporte intente de nuevo', error)
+      setError(error.message);
 
     }
     //se ejecuta independientemente del resultado
     finally {
       setEnviando(false) //habilita nuevamente el boton
     }
-
-
 
   };
 
