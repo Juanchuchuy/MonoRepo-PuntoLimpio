@@ -15,6 +15,10 @@ import CallesList from './pages/AdminPage/calles/CallesList';
 import CalleForm from './pages/AdminPage/calles/CalleForm'
 import RolesList from './pages/AdminPage/roles/RolesList';
 import RolForm from './pages/AdminPage/roles/RolForm';
+import UsuariosList from './pages/AdminPage/usuarios/UsuariosList';
+import UsuarioForm from './pages/AdminPage/usuarios/UsuarioForm';
+import TiposResiduoList from './pages/AdminPage/tipos-residuo/TiposResiduoList';
+import TipoResiduoForm from './pages/AdminPage/tipos-residuo/TipoResiduoForm';
 import { useAuthStore } from './store/authStore';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css'
@@ -47,6 +51,12 @@ createRoot(document.getElementById('root')).render(
           <Route path='roles' element={<RolesList />} />
           <Route path='roles/nuevo' element={<RolForm />} />
           <Route path='roles/:id/editar' element={<RolForm />} />
+          <Route path='usuarios' element={<UsuariosList />} />
+          <Route path='usuarios/nuevo' element={<UsuarioForm />} />
+          <Route path='usuarios/:id/editar' element={<UsuarioForm />} />
+          <Route path='tipos-residuo' element={<TiposResiduoList />} />
+          <Route path='tipos-residuo/nuevo' element={<TipoResiduoForm />} />
+          <Route path='tipos-residuo/:id/editar' element={<TipoResiduoForm />} />
           <Route path='reportes' element={<AdminReportes />} />
           <Route path='zonas' element={<ZonasList />} />
           <Route path='zonas/nueva' element={<ZonaForm />} />
