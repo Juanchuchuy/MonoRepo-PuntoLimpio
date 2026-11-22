@@ -1,41 +1,46 @@
+
 import "./Footer.css";
-import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <footer className="footer">
-
       <div className="footer-content">
 
         <div className="footer-brand">
-          <h2>PuntoLimpio</h2>
+          <h2>🌱 PuntoLimpio</h2>
           <p>
-            Reciclar hoy cambia el mañana.
+            Una comunidad comprometida con el cuidado
+            del ambiente y una ciudad más limpia.
           </p>
         </div>
 
-        <div className="footer-links">
-          <h3>Explorá</h3>
-
-          <Link to={'/'}>Inicio</Link>
-          <Link to={'/Mapa'}>Mapa</Link>
-          <Link href="#">Reciclaje</Link>
-          <Link href="#">EcoBot</Link>
-          <Link href="#">Información</Link>
+        <div className="footer-colaborar">
+          <h3>¿Cómo podés colaborar?</h3>
+          <ul>
+            <li>Reportando basurales.</li>
+            <li>Separando correctamente tus residuos.</li>
+            <li>Utilizando los puntos de reciclaje.</li>
+            <li>Promoviendo el cuidado del ambiente.</li>
+          </ul>
         </div>
 
         <div className="footer-info">
-          <h3>PuntoLimpio</h3>
+          <h3>Nuestro objetivo</h3>
           <p>
-            Una comunidad comprometida con un futuro más limpio.
+            Promover la participación ciudadana para
+            reducir los residuos, fomentar el reciclaje
+            y construir un entorno más saludable.
           </p>
         </div>
 
       </div>
 
       <div className="footer-bottom">
-        <p>© 2026 PuntoLimpio. Todos los derechos reservados.</p>
+        <p>
+          © {new Date().getFullYear()} PuntoLimpio.
+          Todos los derechos reservados.
+        </p>
       </div>
-
     </footer>
   );
 }
