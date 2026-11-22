@@ -2,16 +2,24 @@
   width: 100%;
 }
 
+
 .hero {
-  min-height: 70vh;
+  min-height: 38vh;
+  margin: 20px 24px 0;
+  padding: 55px 6%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 80px 6%;
+  background: linear-gradient(
+    120deg,
+    #43a047,
+    #66bb6a,
+    #2e7d32
+  );
 
-  background: linear-gradient(120deg, #4caf50, #5e8a61)
+  border-radius: 30px;
 }
 
 .hero-content {
@@ -19,27 +27,19 @@
   text-align: center;
 }
 
-.hero h1 {
+
+.hero-content h1 {
+  color: white;
   font-size: 58px;
-  line-height: 1.05;
-
   margin-bottom: 20px;
-
-  color: #f8f9f4;
-
-  font-weight: 700;
 }
 
-.hero p {
-  max-width: 650px;
-
-  margin: 0 auto;
-
+.hero-content p {
+  color: #f1f8e9;
   font-size: 20px;
-  line-height: 1.7;
-
-  color: #f8f9f4b5;
+  line-height: 1.6;
 }
+
 .hero-buttons{
 
     display: flex;  
@@ -78,37 +78,28 @@
 
 /*tarjetas*/
 
+
 .home-features {
   display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 30px;
 
-  padding: 70px 6%;
+  padding: 45px 6% 70px;
 
   background-color: #fafafa;
 }
 
+
+
 .feature-card {
-  padding: 32px;
-
-  border-radius: 18px;
-
-  background-color: white;
-
-  border: 1px solid #e8e8e8;
-
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .feature-card:hover {
-  transform: translateY(-6px);
-
+  transform: translateY(-7px);
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.10);
 }
+
 
 .feature-card h2 {
   margin-bottom: 15px;
@@ -155,44 +146,101 @@
 
 }
 
-/*css del impacto*/
+/* CSS del impacto */
+
 .impact-card {
   text-align: center;
 }
 
 .impact-number {
   margin: 20px 0 10px;
-
   font-size: 56px;
   font-weight: 700;
-
   color: #2e7d32;
 }
 
 .impact-card p {
   margin-bottom: 20px;
-
   color: #555;
 }
 
 .impact-bar {
   width: 100%;
   height: 12px;
-
   background-color: #e0e0e0;
-
   border-radius: 20px;
-
   overflow: hidden;
 }
 
 .impact-progress {
   height: 100%;
-
   background-color: #2e7d32;
-
   border-radius: 20px;
-
   transition: width 0.5s ease;
 }
 
+.impact-detail {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+/* Tarjeta del mapa */
+.mapa-card {
+  padding: 0;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mapa-card img {
+  display: block;
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.mapa-card-content {
+  padding: 25px 32px 32px;
+}
+
+.mapa-card-content h2 {
+  margin-bottom: 12px;
+}
+
+.mapa-card-content p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.mapa-card-content span {
+  display: inline-block;
+  margin-top: 18px;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.mapa-card:hover img {
+  filter: brightness(0.95);
+}
+
+.reciclaje-card {
+  display: block;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.reciclaje-card img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.reciclaje-card-content {
+  padding: 25px 32px 32px;
+}

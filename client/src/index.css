@@ -1,23 +1,25 @@
-:root{
 
-    --font-principal: 'Montserrat', sans-serif;
-    --font-weigthText: 600;
-    --font-weigthTitle: 700;
-
+:root {
+  --font-principal: 'Montserrat', sans-serif;
+  --font-weigthText: 600;
+  --font-weigthTitle: 700;
 }
-*{
 
-    margin: 0;
-    padding: 0;
-
-
+/* Hace que el padding y el borde estén incluidos en el ancho */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
 }
+
 button,
 input {
   font: inherit;
 }
-body{
-    background-color: #ececec;
-    min-height: 100vh;      
-    font-family: var(--font-principal);
+
+body {
+  background-color: #ececec;
+  min-height: 100vh;
+  font-family: var(--font-principal);
 }
