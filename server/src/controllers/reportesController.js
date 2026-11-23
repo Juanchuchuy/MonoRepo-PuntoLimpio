@@ -121,12 +121,17 @@ export const getPuntos = async (req, res) => {
         const [rows] = await pool.query(`
             SELECT p.id_punto, p.nombre, p.referencia, p.latitud, p.longitud, p.activo, 
                    c.nombre AS calle, z.nombre AS zona,
-                   GROUP_CONCAT(DISTINCT t.nombre SEPARATOR ', ') AS tipos
+                   GROUP_CONCAT(DISTINCT t.nombre SEPARATOR ', ') AS tipos,
+                   GROUP_CONCAT(DISTINCT CONCAT(h.dia_semana, ' ', TIME_FORMAT(h.hora_estimada, '%H:%i'))
+                       ORDER BY FIELD(h.dia_semana, 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'), h.hora_estimada
+                       SEPARATOR ', ') AS horarios
             FROM puntos_recoleccion p
             JOIN calles c ON c.id_calle = p.id_calle
             JOIN zonas z ON z.id_zona = c.id_zona
             LEFT JOIN punto_tipo_residuo ptr ON ptr.id_punto = p.id_punto
             LEFT JOIN tipos_residuo t ON t.id_tipo = ptr.id_tipo
+            LEFT JOIN horarios_recoleccion h ON h.id_punto = p.id_punto
+            WHERE p.activo = 1
             GROUP BY p.id_punto, c.nombre, z.nombre
         `);
         res.json(rows);
