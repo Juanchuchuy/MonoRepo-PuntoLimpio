@@ -75,9 +75,13 @@ function Header() {
             {user ? (
               <>
                 <span style={{ fontWeight: 600 }}>Hola, {user.nombre}</span>
-                {user.rol === "administrador" && (
+                {user.rol === "administrador" ? (
                   <button className="login-button" onClick={() => navigate("/admin")}>
                     Dashboard
+                  </button>
+                ) : (
+                  <button className="login-button" onClick={() => navigate("/mi-panel")}>
+                    Mi panel
                   </button>
                 )}
                 <button
