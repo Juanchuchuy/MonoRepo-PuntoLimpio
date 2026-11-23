@@ -6,6 +6,7 @@ import AccesoPage from './pages/AccesoPage/AccesoPage';
 import EstadisticasPage from './pages/EstadisticasPage/EstadisticasPage';
 import ReciclajePage from './pages/ReciclajePage/ReciclajePage';
 import PrivateRoute from './routes/PrivateRoute';
+import UsuarioDashboard from './pages/UsuarioPage/UsuarioDashboard';
 import AdminLayout from './pages/AdminPage/AdminLayout';
 import AdminDashboard from './pages/AdminPage/AdminDashboard';
 import AdminReportes from './pages/AdminPage/AdminReportes'
@@ -45,6 +46,11 @@ createRoot(document.getElementById('root')).render(
         <Route path='/Mapa' element={<Mapa />} />
         <Route path='/Acceso' element={<AccesoPage />} />
         <Route path='/reciclaje' element={<ReciclajePage />} />
+
+        {/* Panel del vecino: cualquier usuario con sesión (sin `roles`) */}
+        <Route element={<PrivateRoute />}>
+          <Route path='/mi-panel' element={<UsuarioDashboard />} />
+        </Route>
 
         {/* Estadísticas: solo para el rol administrador */}
         <Route element={<PrivateRoute roles={['administrador']} />}>

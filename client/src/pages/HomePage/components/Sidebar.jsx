@@ -54,6 +54,9 @@ function Sidebar({ abierto, cerrarSidebar }) {
               <Link to={'/admin'} onClick={cerrarSidebar}>Dashboard</Link>
             </>
           )}
+          {user && user.rol !== 'administrador' && (
+            <Link to={'/mi-panel'} onClick={cerrarSidebar}>Mi panel</Link>
+          )}
           
         </nav>
 
