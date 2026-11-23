@@ -39,6 +39,16 @@ function Header() {
   }
 
   const handleLogout = () => {
+  const cambiosSinGuardar = useAuthStore.getState().CambiosSinGuardar
+
+  if(cambiosSinGuardar){
+    const confirmar = window.confirm("Hay información sin guardar. ¿Estás seguro de que querés cerrar la sesión?")
+
+    if (!confirmar) return;
+
+  }
+
+
     logout();
     navigate('/');
   }
