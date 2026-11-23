@@ -9,7 +9,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import UsuarioDashboard from './pages/UsuarioPage/UsuarioDashboard';
 import AdminLayout from './pages/AdminPage/AdminLayout';
 import AdminDashboard from './pages/AdminPage/AdminDashboard';
-import AdminReportes from './pages/AdminPage/AdminReportes'
+import AdminReportes from './pages/AdminPage/reportes/AdminReportes';
 import ZonasList from './pages/AdminPage/zonas/ZonasList';
 import ZonaForm from './pages/AdminPage/zonas/ZonaForm';
 import CallesList from './pages/AdminPage/calles/CallesList';
