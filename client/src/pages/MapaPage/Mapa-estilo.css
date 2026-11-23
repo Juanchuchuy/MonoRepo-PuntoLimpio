@@ -155,6 +155,16 @@
   background-color: #246638;
 }
 
+.boton-eliminar-reporte {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+
 /*Mapa y Leyendas*/
 
 .mapa-error {

@@ -24,17 +24,18 @@ const iconoProvisional = L.divIcon({
 });
 
 const iconoPuntoRecoleccion = L.divIcon({
-  className: 'mapa-icono-amarillo', 
+  className: 'mapa-icono-amarillo',
   iconSize: [20, 20],
   iconAnchor: [10, 10]
 });
 
 
 
-const CapturaClic = ({ alHacerClick,habilitado }) => {
+const CapturaClic = ({ alHacerClick, habilitado }) => {
   useMapEvents({
-    click: (e) => { if(habilitado)
-    {alHacerClick(e.latlng) }}
+    click: (e) => {
+      if (habilitado) { alHacerClick(e.latlng) }
+    }
   });
   return null;
 };
@@ -45,7 +46,7 @@ const Mapa = () => {
   // verificacion de admin 
   const user = useAuthStore((state) => state.user);
   const esAdmin = user?.rol === 'administrador';
-  
+
 
 
   const [ubicacionTemporal, setUbicacionTemporal] = useState(null);
@@ -209,15 +210,14 @@ const Mapa = () => {
 
   const eliminarReporte = async (id) => {
     try {
-      const respuesta = await fetch(`${API_URL}/reportes/${id}`, {
-        method: 'DELETE',
+      await api(`/reportes/${id}`, {
+        method: 'DELETE'
       });
 
-      if (!respuesta.ok) {
-        throw new Error('No se pudo eliminar');
-      }
+      const reportesActualizados = reportes.filter(
+        reporte => reporte.id_reporte !== id
+      );
 
-      const reportesActualizados = reportes.filter(reporte => reporte.id_reporte !== id);
       setReportes(reportesActualizados);
 
     } catch (error) {
@@ -230,20 +230,10 @@ const Mapa = () => {
 
   const cambiarEstado = async (id, nuevoEstado) => {
     try {
-
-      const respuesta = await fetch(`${API_URL}/reportes/${id}`, {
+      await api(`/reportes/${id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ estado: nuevoEstado })
+        body: { estado: nuevoEstado }
       });
-
-
-      if (!respuesta.ok) {
-        throw new Error('No se pudo actualizar el estado');
-      }
-
 
       const reportesActualizados = reportes.map((reporte) => {
         if (reporte.id_reporte === id) {
@@ -303,19 +293,23 @@ const Mapa = () => {
               <p><strong>Tipo:</strong> {reporte.tipo}</p>
               <p><strong>Descripción:</strong> {reporte.descripcion}</p>
               <p><strong>Estado:</strong> {reporte.estado}</p>
-              <select
-                value={reporte.estado}
-                onChange={(e) => cambiarEstado(reporte.id_reporte, e.target.value)}
-              >
-                <option value="Pendiente">Pendiente</option>
-                <option value="En revision">En revisión</option>
-                <option value="Resuelto">Resuelto</option>
-                <option value="Rechazado">Rechazado</option>
-              </select>
+              {esAdmin && (
+                <>
+                  <select
+                    value={reporte.estado}
+                    onChange={(e) => cambiarEstado(reporte.id_reporte, e.target.value)}
+                  >
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="En revision">En revisión</option>
+                    <option value="Resuelto">Resuelto</option>
+                    <option value="Rechazado">Rechazado</option>
+                  </select>
 
-              <button onClick={() => eliminarReporte(reporte.id_reporte)}>
-                Eliminar
-              </button>
+                  <button className="boton-eliminar-reporte" onClick={() => eliminarReporte(reporte.id_reporte)}>
+                    Eliminar
+                  </button>
+                </>
+              )}
             </Popup>
           </Marker>
         ))}
