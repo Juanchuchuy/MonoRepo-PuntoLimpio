@@ -23,6 +23,10 @@ import PuntosList from './pages/AdminPage/puntos/PuntosList';
 import PuntoForm from './pages/AdminPage/puntos/PuntoForm';
 import PuntoTiposList from './pages/AdminPage/puntoTipos/PuntoTiposList';
 import PuntoTipoForm from './pages/AdminPage/puntoTipos/PuntoTipoForm';
+import HorariosList from './pages/AdminPage/horarios/HorariosList';
+import HorarioForm from './pages/AdminPage/horarios/HorarioForm';
+import RegistrosList from './pages/AdminPage/registros/RegistrosList';
+import RegistroForm from './pages/AdminPage/registros/RegistroForm';
 import { useAuthStore } from './store/authStore';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css'
@@ -74,6 +78,12 @@ createRoot(document.getElementById('root')).render(
           <Route path='punto-tipos' element={<PuntoTiposList />} />
           <Route path='punto-tipos/nuevo' element={<PuntoTipoForm />} />
           <Route path='punto-tipos/:idPunto/:idTipo/editar' element={<PuntoTipoForm />} />
+          <Route path='horarios' element={<HorariosList />} />
+          <Route path='horarios/nuevo' element={<HorarioForm />} />
+          <Route path='horarios/:id/editar' element={<HorarioForm />} />
+          <Route path='registros' element={<RegistrosList />} />
+          <Route path='registros/nuevo' element={<RegistroForm />} />
+          <Route path='registros/:id/editar' element={<RegistroForm />} />
         </Route>
       </Route>
     </Routes>

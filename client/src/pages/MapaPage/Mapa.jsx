@@ -283,6 +283,7 @@ const Mapa = () => {
               <p><strong>{punto.nombre}</strong></p>
               <p>{punto.calle} ({punto.zona})</p>
               <p>Recibe: {punto.tipos || 'No especificado'}</p>
+              <p>Horarios: {punto.horarios || 'Sin horarios cargados'}</p>
             </Popup>
           </Marker>
         ))}
