@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { api } from '../../../services/api';
 
-const API_URL = 'http://localhost:3000/api';
+
 
 const ZonasList = () => {
   const [zonas, setZonas] = useState([]);
 
   const traerZonas = async () => {
     try {
-      const respuesta = await fetch(`${API_URL}/zonas`);
-      const data = await respuesta.json();
+      const data = await api('/zonas');
       setZonas(data);
     } catch (error) {
       console.error('Error al traer zonas:', error);
@@ -22,16 +22,15 @@ const ZonasList = () => {
 
   const eliminarZona = async (id) => {
     if (!window.confirm('¿Seguro que querés eliminar esta zona?')) return;
+
     try {
-      const respuesta = await fetch(`${API_URL}/zonas/${id}`, { method: 'DELETE' });
-      if (!respuesta.ok) throw new Error('Error al eliminar');
+      await api(`/zonas/${id}`, { method: 'DELETE' });
       setZonas(zonas.filter(z => z.id_zona !== id));
     } catch (error) {
       console.error(error);
       alert('No se pudo eliminar. Puede que tenga calles asociadas.');
     }
   };
-
   return (
     <div>
       <div className="glass-card-white">
@@ -62,8 +61,8 @@ const ZonasList = () => {
                 <td>{zona.id_zona}</td>
                 <td>{zona.nombre}</td>
                 <td>
-                  {zona.encargado_nombre 
-                    ? `${zona.encargado_nombre} ${zona.encargado_apellido}` 
+                  {zona.encargado_nombre
+                    ? `${zona.encargado_nombre} ${zona.encargado_apellido}`
                     : 'Sin asignar'}
                 </td>
                 <td className="admin-actions">

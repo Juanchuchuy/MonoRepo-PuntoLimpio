@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { api } from '../../../services/api';
 
-const API_URL = 'http://localhost:3000/api';
+
 
 const CallesList = () => {
   const [calles, setCalles] = useState([]);
 
   const traerCalles = async () => {
     try {
-      const respuesta = await fetch(`${API_URL}/calles`);
-      const data = await respuesta.json();
+      const data = await api('/calles');
       setCalles(data);
     } catch (error) {
       console.error('Error al traer calles:', error);
@@ -22,16 +22,15 @@ const CallesList = () => {
 
   const eliminarCalle = async (id) => {
     if (!window.confirm('¿Seguro que querés eliminar esta calle?')) return;
+
     try {
-      const respuesta = await fetch(`${API_URL}/calles/${id}`, { method: 'DELETE' });
-      if (!respuesta.ok) throw new Error('Error al eliminar');
+      await api(`/calles/${id}`, { method: 'DELETE' });
       setCalles(calles.filter(c => c.id_calle !== id));
     } catch (error) {
       console.error(error);
       alert('No se pudo eliminar. Puede que tenga puntos asociados.');
     }
   };
-
   return (
     <div>
       <div className="glass-card-white">

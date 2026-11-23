@@ -16,14 +16,14 @@ router.post('/reportes', verifyToken, postReporte);
 router.put('/reportes/:id', updateReporte);
 router.delete('/reportes/:id', deleteReporte);
 router.get('/puntos', getPuntos);
-router.get('/zonas', getZonas);
-router.post('/zonas', postZona);
-router.put('/zonas/:id', putZona);
-router.delete('/zonas/:id', deleteZona);
-router.get('/calles', getCalles);
-router.post('/calles', postCalle);
-router.put('/calles/:id', putCalle);
-router.delete('/calles/:id', deleteCalle);
+router.get('/zonas',verifyToken, getZonas);
+router.post('/zonas',verifyToken,requireRole('administrador'), postZona);
+router.put('/zonas/:id',verifyToken,requireRole('administrador'), putZona);
+router.delete('/zonas/:id',verifyToken,requireRole('administrador'), deleteZona);
+router.get('/calles',verifyToken, getCalles);
+router.post('/calles',verifyToken,requireRole('administrador'), postCalle);
+router.put('/calles/:id',verifyToken,requireRole('administrador'), putCalle);
+router.delete('/calles/:id',verifyToken,requireRole('administrador'), deleteCalle);
 router.get('/estadisticas/impacto', getImpacto); // público: lo usa el inicio
 router.get('/estadisticas', verifyToken, requireRole('administrador'), getEstadisticas); // solo admin
 
