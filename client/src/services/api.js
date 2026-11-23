@@ -57,7 +57,7 @@ export async function api(path, { method = "GET", body } = {}) {
     const esAuth = path === "/auth/login" || path === "/auth/register";
     if (respuesta.status === 401 && token && !esAuth) alVencerSesion?.();
 
-    const error = new Error(datos?.detalles?.[0]?.mensaje || datos?.error || "Error inesperado del servidor");
+    const error = new Error(datos?.detalles?.[0]?.mensaje || datos?.message || datos?.error || "Error inesperado del servidor");
     error.status = respuesta.status;
     throw error;
   }
