@@ -117,6 +117,10 @@
 .boton-confirmar {
   background-color: #31834b;
   color: white;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
 }
 
 .boton-confirmar:hover:not(:disabled) {
@@ -127,6 +131,7 @@
   background-color: #a5bda9;
   color: white;
   cursor: not-allowed;
+  transform: none;
 }
 
 

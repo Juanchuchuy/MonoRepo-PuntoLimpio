@@ -6,6 +6,12 @@ export const useAuthStore = create((set) => ({
   user: null,
   cargando: true, // true mientras se verifica la sesión guardada al abrir la app
 
+  //Indica si hay informacion sin guardar 
+  CambiosSinGuardar:false,
+  //Permite actualizar el estado de los formularios
+  setCambiosSinGuardar:(valor)=>set({CambiosSinGuardar:valor}),
+
+
   login: async (credenciales) => {
     const { token, user } = await api("/auth/login", { method: "POST", body: credenciales });
     tokenStorage.set(token);
@@ -20,7 +26,7 @@ export const useAuthStore = create((set) => ({
 
   logout: () => {
     tokenStorage.clear();
-    set({ user: null });
+    set({ user: null , CambiosSinGuardar:false});
   },
 
   // Se llama una vez al iniciar: si hay token guardado, pide el usuario al backend.

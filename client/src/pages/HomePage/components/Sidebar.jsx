@@ -14,6 +14,19 @@ function Sidebar({ abierto, cerrarSidebar }) {
   };
 
   const handleLogout = () => {
+    const CambiosSinGuardar= useAuthStore.getState().CambiosSinGuardar
+    if(CambiosSinGuardar){
+      const confirmar = window.confirm(
+      "Hay información sin guardar. ¿Estás seguro de que queres cerrar la sesion?"
+    )
+
+    if (!confirmar)return
+
+    }
+
+
+
+
     logout();
     cerrarSidebar();
     navigate('/');

@@ -43,9 +43,10 @@ const CapturaClic = ({ alHacerClick, habilitado }) => {
 const Mapa = () => {
 
 
-  // verificacion de admin 
+  // verificacion de admin y de cambios
   const user = useAuthStore((state) => state.user);
   const esAdmin = user?.rol === 'administrador';
+  const setCambiosSinGuardar = useAuthStore((state) => state.setCambiosSinGuardar)
 
 
 
@@ -66,6 +67,32 @@ const Mapa = () => {
 
   // se coloca aqui ya que ModoCrearPunto es especifico del admin
   const habilitado = !esAdmin || modoCrearPunto
+
+  useEffect(() => {
+    let hayDatos = false
+
+    if (esAdmin) {
+      hayDatos =
+        ubicacionTemporal !== null || nuevoPuntoNombre.trim() !== "" || nuevoPuntoReferencia.trim() !== "" || nuevoPuntoCalle !== ""
+
+
+    }
+    else {
+      hayDatos =
+        ubicacionTemporal !== null || descripcion.trim() !== "" || tipoResiduo !== ""
+
+    }
+
+    setCambiosSinGuardar(hayDatos)
+
+    return () => {
+
+      setCambiosSinGuardar(false)
+
+    }
+
+  }, [esAdmin, ubicacionTemporal, descripcion, tipoResiduo, nuevoPuntoNombre, nuevoPuntoReferencia, nuevoPuntoCalle, setCambiosSinGuardar])
+
 
   useEffect(() => {
     const traerTipos = async () => {
