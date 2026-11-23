@@ -118,7 +118,17 @@ export const deleteReporte = async (req, res) => {
 
 export const getPuntos = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT id_punto, nombre, referencia, latitud, longitud FROM puntos_recoleccion');
+        const [rows] = await pool.query(`
+            SELECT p.id_punto, p.nombre, p.referencia, p.latitud, p.longitud, p.activo, 
+                   c.nombre AS calle, z.nombre AS zona,
+                   GROUP_CONCAT(DISTINCT t.nombre SEPARATOR ', ') AS tipos
+            FROM puntos_recoleccion p
+            JOIN calles c ON c.id_calle = p.id_calle
+            JOIN zonas z ON z.id_zona = c.id_zona
+            LEFT JOIN punto_tipo_residuo ptr ON ptr.id_punto = p.id_punto
+            LEFT JOIN tipos_residuo t ON t.id_tipo = ptr.id_tipo
+            GROUP BY p.id_punto, c.nombre, z.nombre
+        `);
         res.json(rows);
     } catch (error) {
         console.error(error);
