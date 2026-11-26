@@ -13,7 +13,7 @@ export const getTipos = async (req, res) => {
 export const getReportes = async (req, res) => {
     try {
         const [rows] = await pool.query(`
-            SELECT rc.id_reporte, rc.latitud, rc.longitud, rc.descripcion, rc.estado, rc.fecha_reporte, tr.nombre AS tipo 
+            SELECT rc.id_reporte, rc.id_tipo, rc.latitud, rc.longitud, rc.descripcion, rc.estado, rc.fecha_reporte, tr.nombre AS tipo 
             FROM reportes_ciudadanos rc 
             JOIN tipos_residuo tr ON rc.id_tipo = tr.id_tipo 
             ORDER BY rc.fecha_reporte DESC
@@ -90,6 +90,52 @@ export const updateReporte = async (req, res) => {
     }
 
 }
+
+
+
+
+export const editarReporte = async (req, res) => {
+
+    const { id } = req.params;
+    const { id_tipo, descripcion } = req.body;
+
+    if (!id_tipo || !descripcion || descripcion.trim() === '') {
+        return res.status(400).json({ message: 'El tipo y la descripción son obligatorios' });
+    }
+
+    try {
+        const [tipo] = await pool.query(
+            'SELECT id_tipo FROM tipos_residuo WHERE id_tipo = ?',
+            [id_tipo]
+        );
+
+        if (tipo.length === 0) {
+            return res.status(400).json({ message: 'Tipo de residuo no válido' });
+        }
+
+        const updatesql = `
+            UPDATE reportes_ciudadanos
+            SET id_tipo = ?, descripcion = ?
+            WHERE id_reporte = ?
+        `;
+
+        const [resultado] = await pool.query(
+            updatesql,
+            [id_tipo, descripcion.trim(), id]
+        );
+
+        if (resultado.affectedRows === 0) {
+            return res.status(404).json({ message: 'Reporte no encontrado' });
+        }
+
+        res.json({ message: 'Reporte actualizado correctamente' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al editar el reporte' });
+    }
+};
+
 
 
 
