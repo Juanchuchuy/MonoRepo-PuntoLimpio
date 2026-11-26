@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getTipos, getReportes, postReporte, updateReporte, deleteReporte, getPuntos } from '../controllers/reportesController.js';
+import { getTipos, getReportes, postReporte, updateReporte, deleteReporte, editarReporte, getPuntos } from '../controllers/reportesController.js';
 import { getZonas, postZona, putZona, deleteZona } from '../controllers/zonasController.js';
 import { getCalles, postCalle, putCalle, deleteCalle } from '../controllers/callesController.js';
 import { getEstadisticas, getImpacto } from '../controllers/estadisticasController.js';
@@ -14,6 +14,7 @@ router.get('/tipos', getTipos);
 router.get('/reportes', getReportes);
 router.post('/reportes', verifyToken, postReporte);
 router.put('/reportes/:id', verifyToken, requireRole('administrador'), updateReporte);
+router.put('/reportes/:id/editar', verifyToken, requireRole('administrador'), editarReporte);
 router.delete('/reportes/:id', verifyToken, requireRole('administrador'), deleteReporte);
 router.get('/puntos', getPuntos);
 router.get('/zonas',verifyToken, getZonas);

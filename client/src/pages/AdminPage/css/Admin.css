@@ -307,3 +307,10 @@
 .admin-check input {
   width: auto;
 }
+
+.admin-table select,
+.admin-table textarea {
+  padding: 8px;
+  border: 1px solid var(--admin-borde);
+  border-radius: 6px;
+}
