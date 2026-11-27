@@ -3,7 +3,7 @@ import { listar, obtener, crear, actualizar, eliminar } from "../controllers/tip
 import validate from "../middlewares/validate.js";
 import verifyToken from "../middlewares/verifyToken.js";
 import requireRole from "../middlewares/requireRole.js";
-import { reglasId, reglasTipo } from "../validators/tiposResiduo.validators.js";
+import { esquemaId, esquemaTipo } from "../validators/tiposResiduo.validators.js";
 
 // Rutas bajo /api/admin/tipos-residuo. Todas exigen sesión y rol administrador.
 const router = Router();
@@ -11,9 +11,9 @@ const router = Router();
 router.use(verifyToken, requireRole("administrador"));
 
 router.get("/", listar);
-router.get("/:id", reglasId, validate, obtener);
-router.post("/", reglasTipo, validate, crear);
-router.put("/:id", reglasId, reglasTipo, validate, actualizar);
-router.delete("/:id", reglasId, validate, eliminar);
+router.get("/:id", validate({ params: esquemaId }), obtener);
+router.post("/", validate({ body: esquemaTipo }), crear);
+router.put("/:id", validate({ params: esquemaId, body: esquemaTipo }), actualizar);
+router.delete("/:id", validate({ params: esquemaId }), eliminar);
 
 export default router;

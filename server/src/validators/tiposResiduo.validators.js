@@ -1,9 +1,13 @@
-import { body, param } from "express-validator";
+import { z } from "zod";
+import { idPositivo } from "../middlewares/validate.js";
 
-// Reglas de validación de los endpoints de tipos de residuo.
-export const reglasId = [param("id").isInt({ min: 1 }).withMessage("El id del tipo de residuo no es válido")];
+const textoNombre = "El nombre es obligatorio";
+const textoDescripcion = "La descripción no puede superar los 150 caracteres";
 
-export const reglasTipo = [
-  body("nombre").trim().notEmpty().withMessage("El nombre es obligatorio").bail().isLength({ max: 50 }).withMessage("El nombre no puede superar los 50 caracteres"),
-  body("descripcion").optional({ values: "falsy" }).trim().isLength({ max: 150 }).withMessage("La descripción no puede superar los 150 caracteres"),
-];
+// Esquemas de validación de los endpoints de tipos de residuo.
+export const esquemaId = z.object({ id: idPositivo("El id del tipo de residuo no es válido") });
+
+export const esquemaTipo = z.object({
+  nombre: z.string(textoNombre).trim().min(1, textoNombre).max(50, "El nombre no puede superar los 50 caracteres"),
+  descripcion: z.string(textoDescripcion).trim().max(150, textoDescripcion).nullish(),
+});

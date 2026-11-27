@@ -1,4 +1,5 @@
-import { param } from "express-validator";
+import { z } from "zod";
+import { idPositivo } from "../middlewares/validate.js";
 
-// Reglas de validación de los endpoints del panel del usuario.
-export const reglasId = [param("id").isInt({ min: 1 }).withMessage("El id del reporte no es válido")];
+// Esquemas de validación de los endpoints del panel del usuario.
+export const esquemaId = z.object({ id: idPositivo("El id del reporte no es válido") });

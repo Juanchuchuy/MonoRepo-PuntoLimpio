@@ -3,7 +3,7 @@ import { listar, obtener, crear, actualizar, eliminar } from "../controllers/hor
 import validate from "../middlewares/validate.js";
 import verifyToken from "../middlewares/verifyToken.js";
 import requireRole from "../middlewares/requireRole.js";
-import { reglasId, reglasHorario } from "../validators/horarios.validators.js";
+import { esquemaId, esquemaHorario } from "../validators/horarios.validators.js";
 
 // Rutas bajo /api/admin/horarios. Todas exigen sesión y rol administrador.
 const router = Router();
@@ -11,9 +11,9 @@ const router = Router();
 router.use(verifyToken, requireRole("administrador"));
 
 router.get("/", listar);
-router.get("/:id", reglasId, validate, obtener);
-router.post("/", reglasHorario, validate, crear);
-router.put("/:id", reglasId, reglasHorario, validate, actualizar);
-router.delete("/:id", reglasId, validate, eliminar);
+router.get("/:id", validate({ params: esquemaId }), obtener);
+router.post("/", validate({ body: esquemaHorario }), crear);
+router.put("/:id", validate({ params: esquemaId, body: esquemaHorario }), actualizar);
+router.delete("/:id", validate({ params: esquemaId }), eliminar);
 
 export default router;
