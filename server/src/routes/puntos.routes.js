@@ -3,7 +3,7 @@ import { opciones, listar, obtener, crear, actualizar, eliminar } from "../contr
 import validate from "../middlewares/validate.js";
 import verifyToken from "../middlewares/verifyToken.js";
 import requireRole from "../middlewares/requireRole.js";
-import { reglasId, reglasPunto } from "../validators/puntos.validators.js";
+import { esquemaId, esquemaPunto } from "../validators/puntos.validators.js";
 
 // Rutas bajo /api/admin/puntos. Todas exigen sesión y rol administrador.
 const router = Router();
@@ -12,9 +12,9 @@ router.use(verifyToken, requireRole("administrador"));
 
 router.get("/opciones", opciones); // calles y tipos de residuo para el formulario (antes de "/:id")
 router.get("/", listar);
-router.get("/:id", reglasId, validate, obtener);
-router.post("/", reglasPunto, validate, crear);
-router.put("/:id", reglasId, reglasPunto, validate, actualizar);
-router.delete("/:id", reglasId, validate, eliminar);
+router.get("/:id", validate({ params: esquemaId }), obtener);
+router.post("/", validate({ body: esquemaPunto }), crear);
+router.put("/:id", validate({ params: esquemaId, body: esquemaPunto }), actualizar);
+router.delete("/:id", validate({ params: esquemaId }), eliminar);
 
 export default router;

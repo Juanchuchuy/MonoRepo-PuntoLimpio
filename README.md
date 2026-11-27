@@ -37,7 +37,7 @@ Las rutas protegidas se verifican tanto en el frontend como en el backend. El se
 | Capa          | Tecnologías                                                                                 |
 | ------------- | -------------------------------------------------------------------------------------------- |
 | Frontend      | React 19, Vite 8, React Router 7, Zustand, Leaflet, react-leaflet, lucide-react, jsPDF y CSS |
-| Backend       | Node.js, Express 5, mysql2, jsonwebtoken, bcrypt, express-validator, cors y dotenv           |
+| Backend       | Node.js, Express 5, mysql2, jsonwebtoken, bcrypt, zod, cors y dotenv                         |
 | Base de datos | MySQL 8                                                                                      |
 | Herramientas  | pnpm, Git y GitHub                                                                           |
 
